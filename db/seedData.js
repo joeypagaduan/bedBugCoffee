@@ -1,14 +1,10 @@
-// require in the database adapter functions as you write them (createUser, createActivity...)
+// require in the database adapter functions as you write them (createUser, createProduct...)
 // const { } = require('./');
 const client = require("./client")
 
 const {
   createUser,
-  createActivity,
-  createRoutine,
-  getRoutinesWithoutActivities,
-  getAllActivities,
-  addActivityToRoutine
+  createProduct,
 } = require("./");
 
 async function dropTables() {
@@ -140,7 +136,7 @@ async function createInitialProducts() {
         calories: "154"
       },
     ]
-    const products = await Promise.all(productsToCreate.map(createActivity))
+    const products = await Promise.all(productsToCreate.map(createProduct))
 
     console.log("products created:")
     console.log(products)

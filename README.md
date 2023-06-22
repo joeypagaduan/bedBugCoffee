@@ -1,4 +1,4 @@
-# Let's Build Bed Bug Coffee!
+# Let's Build The Bed Bug Cafe!
 
 This full stack app boilerplate consists of:
 
