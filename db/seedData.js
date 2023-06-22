@@ -5,6 +5,7 @@ const client = require("./client")
 const {
   createUser,
   createProduct,
+  createAdmin
 } = require("./");
 
 async function dropTables() {
@@ -15,6 +16,7 @@ async function dropTables() {
     await client.query(`
       DROP TABLE IF EXISTS products;
       DROP TABLE IF EXISTS users;
+      DROP TABLE IF EXISTS admin;
     `)
 
     console.log('Finished dropping tables!');
@@ -31,6 +33,13 @@ async function createTables() {
     // create all tables, in the correct order
     await client.query(`
       CREATE TABLE users(
+        id SERIAL PRIMARY KEY,
+        username varchar(255) UNIQUE NOT NULL,
+        email varchar(255) UNIQUE NOT NULL,
+        password varchar(255) NOT NULL
+      );
+
+      CREATE TABLE admin(
         id SERIAL PRIMARY KEY,
         username varchar(255) UNIQUE NOT NULL,
         email varchar(255) UNIQUE NOT NULL,
@@ -77,6 +86,24 @@ async function createInitialUsers() {
     throw error
   }
 }
+
+async function createInitialAdmin() {
+  console.log("Starting to create administrators...")
+  try {
+    const adminToCreate = [
+      { username: "controller", email: "admin@bedbugcafe.com", password: "iControlAll" },
+    ]
+    const admin = await Promise.all(adminToCreate.map(createAdmin))
+
+    console.log("Admin created:")
+    console.log(admin)
+    console.log("Finished creating administrators!")
+  } catch (error) {
+    console.error("Error creating administrators!")
+    throw error
+  }
+}
+
 async function createInitialProducts() {
   try {
     console.log("Starting to create products...")
@@ -155,6 +182,7 @@ async function rebuildDB() {
     await createTables()
     await createInitialUsers()
     await createInitialProducts()
+    await createInitialAdmin()
   } catch (error) {
     console.log("Error during rebuildDB")
     throw error
