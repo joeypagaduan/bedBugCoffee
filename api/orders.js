@@ -3,7 +3,8 @@ const router = express.Router();
 
 // GET /api/routines
 router.get("/", async (req, res, next) => {
-  console.log("Users router");
+  console.log("Orders router");
+  res.send({ orders: [] });
 });
 
 module.exports = router;
