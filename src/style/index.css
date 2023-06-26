@@ -1,6 +1,7 @@
 body {
   margin-top: 70px;
-  background: url(/public/background_coffee.jpg) no-repeat center center fixed;
+  background: url(/public/images/background_coffee.jpg) no-repeat center center
+    fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
