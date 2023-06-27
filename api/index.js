@@ -1,12 +1,16 @@
-const express = require("express");
-const router = express.Router();
+const apiRouter = require('express').Router();
 
-// GET /api/health
-router.get("/health", async (req, res, next) => {});
+apiRouter.get('/', (req, res, next) => {
+  res.send({
+    message: 'API is under construction!',
+  });
+});
 
-// // ROUTER: /api/users
-const usersRouter = require("./users");
-router.use("/users", usersRouter);
+apiRouter.get('/health', (req, res, next) => {
+  res.send({
+    healthy: true,
+  });
+});
 
 // ROUTER: /api/orders
 const ordersRouter = require("./orders");
@@ -17,11 +21,7 @@ const cartsRouter = require("./carts");
 router.use("/carts", cartsRouter);
 
 // ROUTER: /api/products
-const productsRouter = require("./products");
-router.use("/products", productsRouter);
+const activitiesRouter = require('./products');
+router.use('/products', activitiesRouter);
 
-router.get("*", function (req, res) {
-  res.send("what???", 404);
-});
-
-module.exports = router;
+module.exports = apiRouter;
