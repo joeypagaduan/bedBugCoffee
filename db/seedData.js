@@ -51,7 +51,8 @@ async function createTables() {
         name VARCHAR(255) UNIQUE NOT NULL,
         ingredients TEXT NOT NULL,
         price DECIMAL(4, 2) NOT NULL,
-        calories INTEGER NOT NULL
+        calories INTEGER NOT NULL,
+        inventory INTEGER
       );
     `);
     console.log('Finished building tables!');
@@ -113,55 +114,64 @@ async function createInitialProducts() {
         name: "House Black",
         ingredients: "Fresh ground arabica beans",
         price: "4.50",
-        calories: "5"
+        calories: "5",
+        inventory: "10"
       },
       {
         name: "Latte",
         ingredients: "A shot of espresso and your choice of the type of steamed milk with a touch of foam",
         price: "6.50",
-        calories: "190"
+        calories: "190",
+        inventory: "10"
       },
       {
         name: "Cappuccino",
         ingredients: "A shot of espresso, generous foam with a sprinkle of cocoa powder and cinnamon",
         price: "6.50",
-        calories: "160"
+        calories: "160",
+        inventory: "10"
       },
       {
         name: "Americano",
         ingredients: "Concentrated espresso shot, diluted in water",
         price: "5",
-        calories: "18"
+        calories: "18",
+        inventory: "10"
       },
       {
         name: "Doppio",
         ingredients: "A double shot of our special espresso",
         price: "5.50",
-        calories: "10"
+        calories: "10",
+        inventory: "10"
       },
       {
         name: "Cortado",
         ingredients: "The perfect balance of espresso and warm steamed milk",
         price: "5.50",
-        calories: "15"
+        calories: "15",
+        inventory: "10"
       },
       {
         name: "Red Eye",
         ingredients: "Our House Black with a shot of espresso mixed in",
         price: "6.50",
-        calories: "8"
+        calories: "8",
+        inventory: "10"
       },
       {
         name: "Macchiato",
         ingredients: "Espresso, milk, and foam. The happy medium between a cappuccino and doppio",
         price: "7",
-        calories: "206"
+        calories: "206",
+        inventory: "10"
       },
       {
         name: "Irish *must be 21 or older",
         ingredients: "Our House Black, whiskey, and sugar, topped with freshly whipped cream",
         price: "15",
-        calories: "154"
+        calories: "154",
+        inventory: "10"
       },
     ]
     const products = await Promise.all(productsToCreate.map(createProduct))

@@ -5,8 +5,5 @@ const DB_NAME = 'bedBugCoffee';
 module.exports = {
   client,
   ...models,
-  DB_NAME,
-  ...require('./users'),
-  ...require('./products'),
-  ...require('./admin')
+  DB_NAME
 };
