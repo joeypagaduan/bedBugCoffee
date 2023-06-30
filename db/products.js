@@ -19,7 +19,7 @@ async function addProducts(){
     }
 }
 
-async function getProductByName(productName){
+async function getProduct(productName){
     try {
         const { row: [product] } = await client.query(
             `
@@ -27,24 +27,6 @@ async function getProductByName(productName){
                 FROM products
                 WHERE productName=$1
             `, [productName]
-        );
-
-        return product;
-    }
-
-    catch (error) {
-        throw error;
-    }
-}
-
-async function getProductById(productId) {
-    try {
-        const { row: [product] } = await client.query(
-            `
-                SELECT *
-                FROM products
-                WHERE id=$1
-            `, [productId]
         );
 
         return product;
@@ -74,7 +56,6 @@ async function getAllProducts() {
 
 module.exports = {
     addProducts,
-    getProductByName,
-    getProductById,
+    getProduct,
     getAllProducts
 }
