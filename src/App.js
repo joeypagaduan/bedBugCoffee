@@ -7,13 +7,16 @@ import "./style/App.css";
 import Layout from "./components/Layout";
 import ProductList from "./components/ProductList";
 import Login from "./components/Login";
+import Signup from "./components/Signup";
 import CreateAccount from "./components/CreateAccount";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProductDetails from "./components/ProductDetails";
+import Orders from "./components/Orders";
 
 const App = () => {
   console.log("PAGE 1");
   const [APIHealth, setAPIHealth] = useState("");
+  const [authentication, setAuthentication] = useState({});
 
   useEffect(() => {
     // follow this pattern inside your useEffect calls:
@@ -34,10 +37,15 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
+            <Route
+              path="/sign-up"
+              element={<Signup setAuthentication={setAuthentication} />}
+            />
             <Route path="createAcount" element={<CreateAccount />} />
             <Route path="login" element={<Login />} />
             <Route path="/product/:id" element={<ProductDetails />} />
             <Route path="/:type" element={<ProductList />} />
+            <Route path="/orders" element={<Orders />} />
             <Route path="/" element={<ProductList />} />
           </Route>
         </Routes>

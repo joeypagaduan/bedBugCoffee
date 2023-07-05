@@ -1,12 +1,10 @@
-const client = require("./client");
-const models = require("./models");
-const DB_NAME = "bedBugCoffee";
+const models = require('./models');
+const DB_NAME = 'bedBugCoffee';
 
 module.exports = {
-  client,
   ...models,
   DB_NAME,
-  //...require("./users"),
-  //...require("./products"),
-  //...require("./admin"),
+  // ...require('./models/user'),
+  // ...require('./models/products'),
+  // //...require('./models/admin'),
 };
