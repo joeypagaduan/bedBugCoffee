@@ -1,6 +1,6 @@
 const client = require('./client');
 
-async function addProducts(){
+async function addProducts({productName, ingredients, price, calories, inventory}){
     try{
         const {row : [product]} = await client.query(
             `
