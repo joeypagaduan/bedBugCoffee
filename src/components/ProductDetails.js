@@ -1,9 +1,9 @@
-import React from "react";
-import { useParams } from "react-router";
+import React from 'react';
+import { useParams } from 'react-router';
 
 function ProductDetails(req) {
-  const params = useParams();
-  console.log("productId: ", params);
+  const { id, name } = useParams();
+  console.log('productId: ', params);
 
   return (
     <>

@@ -48,7 +48,8 @@ async function createTables() {
         name VARCHAR(255) UNIQUE NOT NULL,
         ingredients TEXT NOT NULL,
         price DECIMAL(4, 2) NOT NULL,
-        calories INTEGER NOT NULL
+        calories INTEGER NOT NULL,
+        image BYTEA NOT NULL
       );
     `);
     console.log('Finished building tables!');
