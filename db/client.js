@@ -3,6 +3,10 @@
 
 // // change the DB_NAME string to whatever your group decides on
 // const DB_NAME = 'bedbugcofe';
+// change the DB_NAME string to whatever your group decides on
+const { Pool } = require("pg");
+const DB_NAME = 'bedBugCoffee';
+
 
 // const DB_URL =
 //   process.env.DATABASE_URL || `postgres://localhost:5432/${DB_NAME}`;
@@ -23,9 +27,6 @@
 //   client = new Client(DB_URL);
 // }
 
-const { Pool } = require("pg");
-
-const DB_NAME = "bed-bug-cafe";
 const connectionString =
   process.env.DATABASE_URL || `postgres://localhost:5432/${DB_NAME}`;
 

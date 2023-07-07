@@ -2,6 +2,52 @@ const express = require('express');
 const { createProduct, getAllProducts } = require('../db/models/products');
 const router = express.Router();
 
+const {
+  addProducts,
+  getProductByName,
+  getProductById,
+  getAllProducts,
+} = require('../db/');
+
+//POST /api/products
+router.post('/', async (req, res, next) => {
+  try {
+    const { productName, ingredients, price, calories, inventory } = req.body;
+
+    const existingProduct = await getProductByName({ productName });
+
+    if (!existingProduct) {
+      return next({
+        error: 'ProductError',
+        message: 'Product ' + productName + ' is already added.',
+        name: productName,
+      });
+    }
+
+    const newProduct = await addProducts({
+      productName,
+      ingredients,
+      price,
+      calories,
+      inventory,
+    });
+
+    res.send({
+      message: 'You have added a new Product.',
+      addedProduct: {
+        id: newProduct.id,
+        productName: newProduct.productName,
+        ingredients: newProduct.ingredients,
+        price: newProduct.price,
+        calories: newProduct.calories,
+        inventory: newProduct.inventory,
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 // GET /api/products
 router.get('/', async (req, res, next) => {
   console.log('Products router');
@@ -28,80 +74,54 @@ router.post('/', async (req, res, next) => {
   res.send(products);
 });
 
-// PATCH /api/products/:productsId
+// //GET /api/products
+// router.get('/', async (req, res, next) => {
 
-// router.patch('/:routineId', async (req, res, next) => {
-//   const { isPublic, name, goal } = req.body;
-//   const { routineId } = req.params;
+//     try{
+//         const {
 
-//   if (!req.headers.authorization) {
-//     res.send({
-//       error: 'Error',
-//       message: 'You must be logged in to perform this action',
-//       name: 'Logged in error',
-//     });
-//   } else {
-//     const rTest = await getRoutineById(routineId);
-//     const user = jwt.decode(req.headers.authorization.replace('Bearer ', ''), {
-//       complete: true,
-//     });
-//     if (rTest.creatorId != user.payload.id) {
-//       res.status(403).send({
-//         error: 'Error',
-//         message: `User ${user.payload.username} is not allowed to update Every day`,
-//         name: 'Logged in error',
-//       });
+//         } = req.body;
+
+//         const products = await addProducts();
+//         res.send({
+//             message: "these are all the products",
+//             products: products
+//         });
 //     }
 
-//     const routine = await updateRoutine({
-//       id: routineId,
-//       isPublic,
-//       name,
-//       goal,
-//     });
+//     catch (error) {
+//         next(error);
+//     }
 
-//     res.send(routine);
-//   }
 // });
 
-// // DELETE /api/products/:routineId
+//GET /api/products/:productId
+router.get('/:productId', async (req, res, next) => {
+  try {
+    const { productId } = req.body;
 
-// router.delete('/:routineId', async (req, res, next) => {
-//   const { routineId } = req.params;
+    const product = await getProductById({ productId });
 
-//   const rTest = await getRoutineById(routineId);
-//   const user = jwt.decode(req.headers.authorization.replace('Bearer ', ''), {
-//     complete: true,
-//   });
-//   if (rTest[0].creatorId != user.payload.id) {
-//     res.status(403).send({
-//       error: 'Error',
-//       message: `User ${user.payload.username} is not allowed to delete On even days`,
-//       name: 'Logged in error',
-//     });
-//   } else {
-//     const routine = await getRoutineById(routineId);
-//     const deleted = await destroyRoutine(routineId);
+    if (!product) {
+      return next({
+        error: 'ProductError',
+        message: 'Product  with the id of ' + productId + ' is not avalible.',
+      });
+    }
 
-//     res.send(routine);
-//   }
-// });
+    res.send({
+      message: 'this is the proudct with the id of ' + productId,
+      products: product,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
 
-// // POST /api/routines/:routineId/activities
-// router.post('/:routineId/activities', async (req, res, next) => {
-//   const { routineId } = req.params;
-//   const { activityId } = req.body;
+//PATCH /api/products/:productId
+router.patch('/:productId', async (req, res, next) => {});
 
-//   try {
-//     const routines = await addActivityToRoutine(req.body);
-//     res.send(routines);
-//   } catch (error) {
-//     res.send({
-//       error: '',
-//       message: `Activity ID ${activityId} already exists in Routine ID ${routineId}`,
-//       name: '',
-//     });
-//   }
-// });
+//DELETE /api/products/:productId
+router.delete('/:productId', async (req, res, next) => {});
 
 module.exports = router;

@@ -8,6 +8,18 @@ router.get("/health", async (req, res, next) => {});
 const usersRouter = require("./users");
 router.use("/users", usersRouter);
 
+router.get('/', (req, res, next) => {
+  res.send({
+    message: 'API is under construction!',
+  });
+});
+
+router.get('/health', (req, res, next) => {
+  res.send({
+    healthy: true,
+  });
+});
+
 // ROUTER: /api/orders
 const ordersRouter = require("./orders");
 router.use("/orders", ordersRouter);
@@ -23,5 +35,8 @@ router.use("/products", productsRouter);
 router.get("*", function (req, res) {
   res.send("what???", 404);
 });
+
+// const activitiesRouter = require('./products');
+// router.use('/products', productsRouter);
 
 module.exports = router;
