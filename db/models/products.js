@@ -1,17 +1,17 @@
 const client = require('../client');
 
-async function createProduct({ name, ingredients, calories, price }) {
+async function createProduct({ productName, ingredients, calories, price }) {
   try {
     const {
       rows: [products],
     } = await client.query(
       `
-      INSERT INTO products(name, ingredients, calories, price)
+      INSERT INTO products(productName, ingredients, calories, price)
       VALUES($1, $2, $3, $4)
-      ON CONFLICT (name) DO NOTHING
+      ON CONFLICT (productName) DO NOTHING
       RETURNING *;
     `,
-      [name, ingredients, calories, price]
+      [productName, ingredients, calories, price]
     );
 
     return products;
@@ -20,7 +20,7 @@ async function createProduct({ name, ingredients, calories, price }) {
   }
 }
 
-async function getProductsByName({ name }) {
+async function getProductsByName({ productName }) {
   try {
     const {
       rows: [products],
@@ -28,9 +28,9 @@ async function getProductsByName({ name }) {
       `
       SELECT *
       FROM products
-      WHERE name='$1'
+      WHERE productName='$1'
     `,
-      [name]
+      [productName]
     );
 
     return products;
