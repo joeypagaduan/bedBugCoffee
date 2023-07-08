@@ -1,4 +1,4 @@
-const { createUser } = require('./user');
+const { createUser } = require('./users');
 const { createProduct } = require('./products');
 module.exports = {
   // add each model to your exports object here
