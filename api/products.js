@@ -1,5 +1,5 @@
 const express = require('express');
-const { createProduct, getAllProducts } = require('../db/models/products');
+
 const router = express.Router();
 
 const {
@@ -7,7 +7,7 @@ const {
   getProductByName,
   getProductById,
   getAllProducts,
-} = require('../db/');
+} = require('../db/models/products');
 
 //POST /api/products
 router.post('/', async (req, res, next) => {
