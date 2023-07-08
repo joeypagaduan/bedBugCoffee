@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
-import ProductCard from "./ProductCard";
-import CardGroup from "react-bootstrap/CardGroup";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
+import ProductCard from './ProductCard';
+import CardGroup from 'react-bootstrap/CardGroup';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 
-import { getProducts } from "../axios-services/index";
+import { getProducts } from '../axios-services';
 
 function ProductList() {
   const { type } = useParams();
@@ -23,7 +23,7 @@ function ProductList() {
 
   return (
     <>
-      <h1>{type !== undefined ? type.toUpperCase() : "All Selections"}</h1>
+      <h1>{type !== undefined ? type.toUpperCase() : 'All Selections'}</h1>
       <Row xs={2} md={2} lg={3} className="g-10">
         {products &&
           products.map((product) => {

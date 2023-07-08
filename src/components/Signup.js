@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getProducts } from '../axios-services/index';
+import { getProducts } from '../axios-services';
 
 const Signup = ({ setAuthentication }) => {
   const [username, setUsername] = useState('');
