@@ -58,7 +58,7 @@ router.get('/', async (req, res, next) => {
             
         } = req.body;
 
-        const products = await addProducts();
+        const products = await getAllProducts();
         res.send({
             message: "these are all the products",
             products: products
@@ -102,12 +102,44 @@ router.get('/:productId', async (req, res, next) => {
 
 //PATCH /api/products/:productId
 router.patch('/:productId', async (req, res, next) => {
+    const { productId } = req.params;
+    const { productName, price, ingredients, calories, inventory } = req.body;
 
+    const product = await getProductById(productId);
+
+    try {
+        const updatedProduct = await updateProduct({
+            productName,
+            price,
+            ingredients,
+            calories,
+            inventory
+        });
+        res.send(updatedProduct);
+    } catch (error) {
+      next (error);
+    }
 });
 
 //DELETE /api/products/:productId
 router.delete('/:productId', async (req, res, next) => {
+    const { productId } = req.params;
+    const product = await getProductById(req.params.productId);
+    const { id, productName, price, ingredients, calories, inventory } = product;
 
+    try{
+            await destroyProduct(productId);
+            res.send({
+                id,
+                productName,
+                price,
+                ingredients,
+                calories,
+                inventory
+            });
+    } catch (error) {
+        res.status(403).send(error);
+    } 
 });
 
 
