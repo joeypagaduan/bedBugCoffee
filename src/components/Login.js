@@ -1,42 +1,40 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from 'react';
+// import { login } from '../api/users';
+// import { useHistory } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import { useHistory } from "react-router-dom";
+
+
+
 
 const Login = ({ setToken, token }) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setError(''); 
 
-    const requestBody = {
-      user: {
-        username: username,
-        password: password,
-      },
-    };
+    try {
+    //   const response = await loginApi(username, password);
+    const response = await fetch('http://localhost:4000/api/users/login', {
+        headers: {
+            "Content-Type": "application/json"
+        },
+        method: "POST",
+        body: JSON.stringify({username,email,password})
+      })
 
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(requestBody),
-    };
-
-    const result = await fetch(BASE_URL, options);
-    const response = await result.json();
-    if (response.success) {
-      console.log(response);
-      setAuthentication({ token: response.data.token, isLoggedIn: true });
-      navigate("/");
-    } else {
-      const error = response.error;
-      console.log(error.message);
-      alert(error.message);
+      if (response.token) {
+        setToken(response.token);
+        navigate.push('/');
+      } else {
+        setError('Invalid username or password. Please try again.');
+      }
+    } catch (error) {
+      setError('An error occurred during login. Please try again.');
     }
   };
 
@@ -46,9 +44,10 @@ const Login = ({ setToken, token }) => {
     navigate("/sign-up");
   };
 
-  return (
+
+return (
     <>
-      <form id="formulario">
+      <form id="formulario" onSubmit={handleSubmit}>
         <label>
           <font color="white">Username:</font>
           <input
@@ -71,9 +70,8 @@ const Login = ({ setToken, token }) => {
           />
         </label>
         <button type="submit">Login</button>
-        <button type="button" onClick={(event) => handleSignup(event)}>
-          Sign-up
-        </button>
+      <button type="button" onClick={(event) => handleSignup(event)}> Sign-up </button>
+            {error && <p className="error-message">{error}</p>} 
       </form>
     </>
   );

@@ -29,7 +29,7 @@
 // module.exports = client;
 
 const { Pool } = require('pg');
-const DB_NAME = 'bed-bug-cafe';
+const DB_NAME = 'bedBugCoffee';
 const connectionString =
   process.env.DATABASE_URL || `postgres://localhost:5432/${DB_NAME}`;
 const client = new Pool({

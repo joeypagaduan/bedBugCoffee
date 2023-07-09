@@ -16,7 +16,7 @@ import Orders from './components/Orders';
 const App = () => {
   console.log('PAGE 1');
   const [APIHealth, setAPIHealth] = useState('');
-  const [authentication, setAuthentication] = useState({});
+  const [token, setToken] = useState({});
 
   useEffect(() => {
     // follow this pattern inside your useEffect calls:
@@ -32,6 +32,7 @@ const App = () => {
     getAPIStatus();
   }, []);
 
+
   return (
     <>
       <BrowserRouter>
@@ -39,7 +40,7 @@ const App = () => {
           <Route path="/" element={<Layout />}>
             <Route
               path="/sign-up"
-              element={<Signup setAuthentication={setAuthentication} />}
+              element={<Signup setToken={setToken} />}
             />
             <Route path="createAcount" element={<CreateAccount />} />
             <Route path="login" element={<Login />} />

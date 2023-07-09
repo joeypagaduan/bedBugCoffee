@@ -1,56 +1,104 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+// import { registerUser } from '../api';
 import { useNavigate } from 'react-router-dom';
-import { getProducts } from '../axios-services';
+// const express = require('express');
 
-const Signup = ({ setAuthentication }) => {
+
+const Signup = ({ setToken, token }) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const navigate = useNavigate();
-  const BASE_URL = 'http://localhost:4000/api/users';
+
+  const [passwordConfirmation, setPasswordConfirmation] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate()
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setError('');
+    
+    if (password !== passwordConfirmation) {
+      setError("Password and password confirmation don't match");
+      return;
+    }
 
-    const requestBody = {
-      user: {
-        username: username,
-        password: password,
-        email: email,
-      },
-    };
+    try {
+    
+      const response = await fetch('http://localhost:4000/api/users/register', {
+        headers: {
+            "Content-Type": "application/json"
+        },
+        method: "POST",
+        body: JSON.stringify({username,email,password})
+      })
 
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(requestBody),
-    };
-
-    const result = await fetch(BASE_URL, options);
-    const response = await result.json();
-    if (response.success) {
-      console.log(response);
-      setAuthentication({ token: response.token, isLoggedIn: true });
-      navigate('/');
-    } else {
-      const error = response.error;
-      console.log(error.message);
-      alert(error.message);
+      const info = await response.json();
+      
+      if (info.error === "A user by that username already exists") {
+        setError('Username already exists. Please choose a different username.');
+      } else if (info.token) {
+        setToken(info.token);
+       navigate('/');
+      }
+    } catch (err) {
+      console.error(err);
     }
   };
 
-  const handleSignup = (event) => {
-    event.preventDefault();
-    console.log('Navigate to Sign-up page!');
-    navigate('/sign-up');
-  };
-
-  return (
+//   return (
+//     <form onSubmit={handleSubmit}>
+//       <div>
+//         <label htmlFor="username">Username:</label>
+//         <input
+//           type="text"
+//           id="username"
+//           value={username}
+//           onChange={(event) => setUsername(event.target.value)}
+//           required
+//           minLength={3}
+//         />
+//       </div>
+//       <div>
+//         <label htmlFor="email">Email:</label>
+//         <input
+//           type="text"
+//           id="email"
+//           value={email}
+//           onChange={(event) => setEmail(event.target.value)}
+//           required
+//           minLength={3}
+//         />
+//       </div>
+//       <div>
+//         <label htmlFor="password">Password:</label>
+//         <input
+//           type="password"
+//           id="password"
+//           value={password}
+//           onChange={(event) => setPassword(event.target.value)}
+//           required
+//           minLength={6}
+//         />
+//       </div>
+//       <div>
+//         <label htmlFor="passwordConfirmation">Confirm Password:</label>
+//         <input
+//           type="password"
+//           id="passwordConfirmation"
+//           value={passwordConfirmation}
+//           onChange={(event) => setPasswordConfirmation(event.target.value)}
+//           required
+//           minLength={6}
+//         />
+//       </div>
+//       <button type="submit">Sign-up</button>
+//       {error && <p className="error-message">{error}</p>}
+//     </form>
+//   );
+// };
+return (
     <>
-      <form id="formulario" onSubmit={(event) => handleSubmit(event)}>
+      <form id="formulario" onSubmit={handleSubmit}>
         <label>
           <font color="white">Username:</font>
           <input
@@ -76,10 +124,11 @@ const Signup = ({ setAuthentication }) => {
           <input
             type="password"
             id="password"
-            // maxlength="8"
             value={password}
             placeholder="Password"
             onChange={(event) => setPassword(event.target.value)}
+            required
+            minLength={6}
           />
         </label>
         <label>
@@ -87,12 +136,15 @@ const Signup = ({ setAuthentication }) => {
           <input
             type="password"
             id="password"
-            value={confirmPassword}
+            value={passwordConfirmation}
             placeholder="Confirm Password"
-            onChange={(event) => setConfirmPassword(event.target.value)}
+            onChange={(event) => setPasswordConfirmation(event.target.value)}
+            required
+            minLength={6}
           />
         </label>
-        <button type="submit">Create user</button>
+        <button type="submit">Sign-up</button>
+//       {error && <p className="error-message">{error}</p>}
       </form>
     </>
   );

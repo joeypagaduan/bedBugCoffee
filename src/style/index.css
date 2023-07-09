@@ -140,3 +140,9 @@ button:focus {
 button {
   margin: 10px;
 }
+
+.error-message {
+  color: #aa1b92;
+  margin-top: 8px;
+  font-size: 14px;
+}

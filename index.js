@@ -1,4 +1,5 @@
 // This is the Web Server
+require('dotenv').config();
 const express = require('express');
 const server = express();
 
@@ -26,8 +27,19 @@ server.use((req, res, next) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
+server.use((req, res) =>{
+  res.status(404); 
+  res.send('Not Found');
+});
+
+server.use((error, req, res) =>{
+  res.status(500); 
+  res.send(error);
+});
 // bring in the DB connection
 const client = require('./db/client');
+
+const { error } = require('console');
 
 // connect to the server
 const PORT = process.env.PORT || 4000;

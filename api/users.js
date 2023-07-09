@@ -15,31 +15,37 @@ const {
 const router = express.Router();
 
 // POST /api/users/register
-router.post('/register', async (req, res, next) => {
-  try {
-    const { username, password } = req.body;
 
+//export const registerAPI = async (username, email, password) => {
+router.post("/register", async (req, res, next) => {
+  const {username,password,email} = req.body;
+  try {
     // Check if the username is already taken
     const existingUser = await getUserByUsername(username);
+    
     if (existingUser) {
-      return next({
+      next( {
         error: 'UserTakenError',
-        message: 'User ' + username + ' is already taken.',
+        message: `User ${username} is already taken.`,
         name: username,
       });
+      return;
     }
 
     // Check if the password is at least 8 characters long
     if (password.length < 8) {
-      return next({
+      next( {
         error: 'PasswordTooShortError',
-        message: 'Password Too Short!',
+        message: 'Password is too short!',
         name: username,
       });
+      return;
     }
-
+    
     // Create a new user account
     const newUser = await createUser({ username, password, email });
+
+
 
     // Generate a JSON Web Token (JWT) for authentication
     const token = jwt.sign(
@@ -47,8 +53,8 @@ router.post('/register', async (req, res, next) => {
       JWT_SECRET
     );
 
-    // Return the response
-    res.send({
+    
+    res.send( {
       message: 'Thanks for signing up for our service.',
       token,
       user: {
@@ -56,13 +62,63 @@ router.post('/register', async (req, res, next) => {
         username: newUser.username,
         email: newUser.email,
       },
-    });
+    })
   } catch (error) {
     next(error);
   }
+
 });
 
+
+// router.post('/register', async (req, res, next) => {
+//   try {
+//     const { username, password } = req.body;
+
+//     // Check if the username is already taken
+//     const existingUser = await getUserByUsername(username);
+//     if (existingUser) {
+//       return next({
+//         error: 'UserTakenError',
+//         message: 'User ' + username + ' is already taken.',
+//         name: username,
+//       });
+//     }
+
+//     // Check if the password is at least 8 characters long
+//     if (password.length < 8) {
+//       return next({
+//         error: 'PasswordTooShortError',
+//         message: 'Password Too Short!',
+//         name: username,
+//       });
+//     }
+
+//     // Create a new user account
+//     const newUser = await createUser({ username, password, email });
+
+//     // Generate a JSON Web Token (JWT) for authentication
+//     const token = jwt.sign(
+//       { id: newUser.id, username: newUser.username, email: newUser.email },
+//       JWT_SECRET
+//     );
+
+//     // Return the response
+//     res.send({
+//       message: 'Thanks for signing up for our service.',
+//       token,
+//       user: {
+//         id: newUser.id,
+//         username: newUser.username,
+//         email: newUser.email,
+//       },
+//     });
+//   } catch (error) {
+//     next(error);
+//   }
+// });
+
 // POST /api/users/login
+
 router.post('/login', async (req, res, next) => {
   try {
     const { username, password } = req.body;
@@ -105,6 +161,7 @@ router.post('/login', async (req, res, next) => {
     next(error);
   }
 });
+
 
 // GET /api/users/me
 router.get('/me', async (req, res, next) => {
