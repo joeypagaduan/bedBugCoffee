@@ -38,64 +38,15 @@ const Signup = ({ setToken, token }) => {
         setError('Username already exists. Please choose a different username.');
       } else if (info.token) {
         setToken(info.token);
-       navigate('/');
+        
+        console.log('success')
+    //    navigate('/');
       }
     } catch (err) {
       console.error(err);
     }
   };
 
-//   return (
-//     <form onSubmit={handleSubmit}>
-//       <div>
-//         <label htmlFor="username">Username:</label>
-//         <input
-//           type="text"
-//           id="username"
-//           value={username}
-//           onChange={(event) => setUsername(event.target.value)}
-//           required
-//           minLength={3}
-//         />
-//       </div>
-//       <div>
-//         <label htmlFor="email">Email:</label>
-//         <input
-//           type="text"
-//           id="email"
-//           value={email}
-//           onChange={(event) => setEmail(event.target.value)}
-//           required
-//           minLength={3}
-//         />
-//       </div>
-//       <div>
-//         <label htmlFor="password">Password:</label>
-//         <input
-//           type="password"
-//           id="password"
-//           value={password}
-//           onChange={(event) => setPassword(event.target.value)}
-//           required
-//           minLength={6}
-//         />
-//       </div>
-//       <div>
-//         <label htmlFor="passwordConfirmation">Confirm Password:</label>
-//         <input
-//           type="password"
-//           id="passwordConfirmation"
-//           value={passwordConfirmation}
-//           onChange={(event) => setPasswordConfirmation(event.target.value)}
-//           required
-//           minLength={6}
-//         />
-//       </div>
-//       <button type="submit">Sign-up</button>
-//       {error && <p className="error-message">{error}</p>}
-//     </form>
-//   );
-// };
 return (
     <>
       <form id="formulario" onSubmit={handleSubmit}>

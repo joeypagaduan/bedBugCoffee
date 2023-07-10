@@ -18,8 +18,12 @@ function Navigation({ token }) {
               {/* <Nav.Link href="/robusta">Robusta</Nav.Link> */}
             </Nav>
             <Nav>
-              {!token && <Nav.Link href="/login">Login</Nav.Link>}
-              {token && (
+              {!token ? (
+                <>
+                  <Nav.Link href="/login">Login</Nav.Link>
+
+                </>
+              ) : (
                 <NavDropdown title="My Account" id="collasible-nav-dropdown">
                   <NavDropdown.Item href="/account">Account</NavDropdown.Item>
                   <NavDropdown.Item href="/orders">Orders</NavDropdown.Item>

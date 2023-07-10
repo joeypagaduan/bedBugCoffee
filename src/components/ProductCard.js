@@ -27,7 +27,7 @@ function ProductCard({ product }) {
         <Card.Text>Price: {product.price}</Card.Text>
         <Button onClick={handleBuyClick}>Buy</Button>
         <Button onClick={handleAddToCartClick} variant="primary">
-          Add to card
+          Add to cart
         </Button>
         {buy && <p>{buy}</p>}
       </Card.Body>

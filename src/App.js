@@ -42,8 +42,9 @@ const App = () => {
               path="/sign-up"
               element={<Signup setToken={setToken} />}
             />
-            <Route path="createAcount" element={<CreateAccount />} />
-            <Route path="login" element={<Login />} />
+            <Route path="/login" element={<Login 
+              Login={Login} setToken={setToken} token={token}
+              />} />
             <Route path="/product/:id/:name" element={<ProductDetails />} />
             <Route path="/orders" element={<Orders />} />
             <Route path="/:type" element={<ProductList />} />

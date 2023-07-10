@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
-// import { login } from '../api/users';
-// import { useHistory } from 'react-router-dom';
+
 import { useNavigate } from "react-router-dom";
-
-
 
 
 const Login = ({ setToken, token }) => {
@@ -16,7 +13,7 @@ const Login = ({ setToken, token }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setError(''); 
-
+   
     try {
     //   const response = await loginApi(username, password);
     const response = await fetch('http://localhost:4000/api/users/login', {
@@ -24,13 +21,16 @@ const Login = ({ setToken, token }) => {
             "Content-Type": "application/json"
         },
         method: "POST",
-        body: JSON.stringify({username,email,password})
+        body: JSON.stringify({username,password})
       })
-
-      if (response.token) {
-        setToken(response.token);
-        navigate.push('/');
-      } else {
+   
+      const info = await response.json();
+      
+      if (info.token) {
+        setToken(info.token);
+        
+        console.log('success')
+          } else {
         setError('Invalid username or password. Please try again.');
       }
     } catch (error) {
