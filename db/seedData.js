@@ -2,9 +2,9 @@
 // const { } = require('./');
 const client = require('./client');
 
-const { createUser, createProduct } = require('./');
+const { createUser, createProduct } = require('./models');
 
-const client = require("./client");
+
 
 async function dropTables() {
   try {
