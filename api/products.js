@@ -105,16 +105,36 @@ router.post('/', async (req, res, next) => {
 // });
 // GET /api/products
 router.get('/', async (req, res, next) => {
-  console.log('Products router');
   try {
-    const products = await getAllProducts();
-    console.log('API ', products);
+    const { productName, ingredients, price, calories, inventory } = req.query;
 
-    res.send(products);
-  } catch ({ name, message }) {
-    res.send({ name, message });
+    // Add the new product to the database
+    await addProducts({ productName, ingredients, price, calories, inventory });
+
+    // Retrieve all products
+    const products = await getAllProducts();
+
+    // Send the response with the updated list of products
+    res.send({
+      message: "These are all the products",
+      products: products
+    });
+  } catch (error) {
+    next(error);
   }
 });
+
+// router.get('/', async (req, res, next) => {
+//   console.log('Products router');
+//   try {
+//     const products = await getAllProducts();
+//     console.log('API ', products);
+
+//     res.send(products);
+//   } catch ({ name, message }) {
+//     res.send({ name, message });
+//   }
+// });
 
 //GET /api/products/:productId
 router.get('/:productId', async (req, res, next) => {

@@ -43,7 +43,7 @@ async function createTables() {
 
       CREATE TABLE products(
         id SERIAL PRIMARY KEY,
-        productName VARCHAR(255) UNIQUE NOT NULL,
+        "productName" VARCHAR(255) UNIQUE NOT NULL,
         ingredients TEXT NOT NULL,
         price DECIMAL(4, 2) NOT NULL,
         calories INTEGER NOT NULL,

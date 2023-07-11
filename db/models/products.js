@@ -3,7 +3,7 @@ const client = require('../client');
 async function getAllProducts(){
     try{
         const {rows} = await client.query(`
-            SELECT* FROM products
+            SELECT * FROM products
             `);
             return rows;
     }
@@ -14,12 +14,12 @@ async function getAllProducts(){
 
 }
 
-async function getProductById(prodId) {
+async function getProductById(id) {
     try {
       const { rows: [product] } = await client.query(`
         SELECT * FROM products 
-        WHERE prodId = $1;
-        `, [prodId]
+        WHERE id = $1;
+        `, [id]
       );
       return product;
     } catch (error) {
@@ -55,7 +55,7 @@ async function getProductById(prodId) {
   async function destroyProduct(id) {
     try {
         await client.query(
-        `DELETE FROM routines
+        `DELETE FROM products
         WHERE id = $1;`
       , [id]);
   
@@ -75,9 +75,9 @@ async function addProducts({ productName, ingredients, price, calories, inventor
   try {
     const { rows: [product] } = await client.query(
       `
-      INSERT INTO products (productName, ingredients, price, calories, inventory)
+      INSERT INTO products ("productName", ingredients, price, calories, inventory)
       VALUES ($1, $2, $3, $4, $5)
-      ON CONFLICT (productName) DO NOTHING
+      ON CONFLICT ("productName") DO NOTHING
       RETURNING *;
       `,
       [productName, ingredients, price, calories, inventory]
@@ -97,7 +97,7 @@ async function getProduct(productName){
           `
               SELECT *
               FROM products
-              WHERE productName=$1
+              WHERE "productName"=$1
           `, [productName]
       );
 
@@ -109,22 +109,22 @@ async function getProduct(productName){
   }
 }
 
-async function getAllProducts() {
-  try {
-      const { row: [products] } = await client.query(
-          `
-              SELECT *
-              FROM products
-          `
-      );
+// async function getAllProducts() {
+//   try {
+//       const { row: [products] } = await client.query(
+//           `
+//               SELECT *
+//               FROM products
+//           `
+//       );
 
-      return products;
-  }
+//       return products;
+//   }
 
-  catch (error) {
-      throw error;
-  }
-}
+//   catch (error) {
+//       throw error;
+//   }
+// }
 
 module.exports = {
     getAllProducts,
