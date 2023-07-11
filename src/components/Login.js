@@ -29,7 +29,7 @@ const Login = ({ setToken, token }) => {
       if (info.token) {
         setToken(info.token);
         
-        console.log('success')
+        navigate('/')
           } else {
         setError('Invalid username or password. Please try again.');
       }

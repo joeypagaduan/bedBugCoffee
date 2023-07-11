@@ -40,7 +40,7 @@ const Signup = ({ setToken, token }) => {
         setToken(info.token);
         
         console.log('success')
-    //    navigate('/');
+       navigate('/');
       }
     } catch (err) {
       console.error(err);
