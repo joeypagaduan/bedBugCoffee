@@ -1,10 +1,28 @@
-import Container from "react-bootstrap/Container";
 
+import React, { useEffect } from "react";
+import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import { useNavigate } from "react-router-dom";
 
-function Navigation({ token }) {
+
+function Navigation({ setToken, token }) {
+  console.log(token)
+  const navigate = useNavigate();
+  
+
+  useEffect(() => {
+    localStorage.setItem('token', token);
+  }, [token]);
+  
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setToken('')
+    navigate('/');
+  };
+ 
+
   return (
     <>
       <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
@@ -18,24 +36,23 @@ function Navigation({ token }) {
               {/* <Nav.Link href="/robusta">Robusta</Nav.Link> */}
             </Nav>
             <Nav>
-              {!token ? (
-                <>
-                  <Nav.Link href="/login">Login</Nav.Link>
-
-                </>
-              ) : (
-                <NavDropdown title="My Account" id="collasible-nav-dropdown">
-                  <NavDropdown.Item href="/account">Account</NavDropdown.Item>
-                  <NavDropdown.Item href="/orders">Orders</NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item href="#action/3.4">Logout</NavDropdown.Item>
-                </NavDropdown>
-              )}
-            </Nav>
+            
+            {!token ? (
+    <Nav.Link href="/login">Login</Nav.Link>
+  ) : ( 
+    <NavDropdown title="My Account" id="collasible-nav-dropdown">
+      <NavDropdown.Item href="/account">Account</NavDropdown.Item>
+      <NavDropdown.Item href="/cart">Cart</NavDropdown.Item>
+      <NavDropdown.Divider />
+      <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
+    </NavDropdown>
+  )}
+             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
     </>
   );
 }
+
 export default Navigation;

@@ -13,10 +13,12 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ProductDetails from './components/ProductDetails';
 import Orders from './components/Orders';
 
+
+
 const App = () => {
   console.log('PAGE 1');
   const [APIHealth, setAPIHealth] = useState('');
-  const [token, setToken] = useState({});
+  const [token, setToken] = useState('');
 
   useEffect(() => {
     // follow this pattern inside your useEffect calls:
@@ -37,18 +39,25 @@ const App = () => {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Layout />}>
+        
+          <Route exact path="/" element={<Layout token={token} setToken={setToken} />}>
+
             <Route
               path="/sign-up"
               element={<Signup setToken={setToken} />}
             />
+
             <Route path="/login" element={<Login 
               Login={Login} setToken={setToken} token={token}
               />} />
+
             <Route path="/product/:id/:name" element={<ProductDetails />} />
             <Route path="/orders" element={<Orders />} />
             <Route path="/:type" element={<ProductList />} />
             <Route path="/" element={<ProductList />} />
+            
+
+
           </Route>
         </Routes>
       </BrowserRouter>

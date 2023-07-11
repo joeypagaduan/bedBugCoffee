@@ -38,9 +38,9 @@ const Signup = ({ setToken, token }) => {
         setError('Username already exists. Please choose a different username.');
       } else if (info.token) {
         setToken(info.token);
-        
+
         console.log('success')
-    //    navigate('/');
+       navigate('/');
       }
     } catch (err) {
       console.error(err);

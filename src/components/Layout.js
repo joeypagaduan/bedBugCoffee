@@ -10,12 +10,12 @@ import { BsFillCartCheckFill } from "react-icons/bs";
 import React from "react";
 import { Outlet } from "react-router-dom";
 
-function Layout() {
+function Layout({setToken, token}) {
   return (
     <>
       <Container>
         <Row className="justify-content-md-center">
-          <Navigation />
+          <Navigation token={token} setToken={setToken} />
         </Row>
         <Row>
           <div className="content">
