@@ -1,17 +1,13 @@
 // grab our db client connection to use with our adapters
-const client = require('../client');
-const bcrypt = require('bcrypt');
+const client = require("../client");
+const bcrypt = require("bcrypt");
 
-async function createUser({ username, password, email }) {
-  console.log(`${username}, ${password}, ${email}`);
-
+async function createUser({ username, password, email}) {
   const SALT_COUNT = 5;
   const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
 
   try {
-    const {
-      rows: [user],
-    } = await client.query(
+    const { rows: [user] } = await client.query(
       `
       INSERT INTO users(username, password, email)
       VALUES($1, $2, $3)
@@ -22,10 +18,8 @@ async function createUser({ username, password, email }) {
     );
 
     delete user.password;
-    user.success = true;
     return user;
   } catch (error) {
-    console.log('Error creating user: ', error);
     throw error;
   }
 }
@@ -44,9 +38,7 @@ async function getUser({ username, password }) {
 
 async function getUserById(userId) {
   try {
-    const {
-      rows: [user],
-    } = await client.query(
+    const { rows: [user] } = await client.query(
       `
       SELECT *
       FROM users
@@ -69,9 +61,7 @@ async function getUserById(userId) {
 
 async function getUserByUsername(username) {
   try {
-    const {
-      rows: [user],
-    } = await client.query(
+    const { rows: [user] } = await client.query(
       `
       SELECT *
       FROM users
@@ -105,10 +95,29 @@ async function getAllUsers() {
   }
 }
 
+async function createAdmin({ username, email, password}) {
+  try{
+    const { rows: [admin] } = await client.query(
+      `
+      INSERT INTO admin(username, email, password)
+      VALUES($1, $2, $3)
+      ON CONFLICT (username) DO NOTHING
+      RETURNING *;
+    `,
+      [username, email, password]
+    );
+
+    return admin;
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   createUser,
   getUser,
   getUserById,
   getUserByUsername,
   getAllUsers,
+  createAdmin
 };
