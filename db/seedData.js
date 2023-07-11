@@ -1,11 +1,6 @@
-// require in the database adapter functions as you write them (createUser, createProduct...)
-// const { } = require('./');
 const client = require('./client');
 
-const { createProduct } = require('./');
-const {createUser} = require('./models')
-
-
+const { createUser, addProducts } = require('./models');
 
 async function dropTables() {
   try {
@@ -189,7 +184,7 @@ async function createInitialProducts() {
         inventory: '10',
       },
     ];
-    const products = await Promise.all(productsToCreate.map(createProduct));
+    const products = await Promise.all(productsToCreate.map(addProducts));
 
     console.log('products created:');
     console.log(products);
@@ -213,12 +208,6 @@ async function rebuildDB() {
     throw error;
   }
 }
-
-client.connect();
-
-rebuildDB()
-  .catch(console.error)
-  .finally(() => client.end());
 
 module.exports = {
   rebuildDB,

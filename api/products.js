@@ -49,26 +49,26 @@ router.post('/', async (req, res, next) => {
 });
 
 // GET /api/products
-router.get('/', async (req, res, next) => {
+// router.get('/', async (req, res, next) => {
     
-    try{
-        const {
+//     try{
+//         const {
             
-        } = req.body;
+//         } = req.body;
 
-        const products = await getAllProducts();
-        res.send({
-            message: "these are all the products",
-            products: products
-        });
-    }
+//         const products = await getAllProducts();
+//         res.send({
+//             message: "these are all the products",
+//             products: products
+//         });
+//     }
 
-    catch (error) {
-        next(error);
-    }
+//     catch (error) {
+//         next(error);
+//     }
 
-    res.send(products);
-  });
+//     res.send(products);
+//   });
 
 // POST /api/products
 router.post('/', async (req, res, next) => {
@@ -103,6 +103,18 @@ router.post('/', async (req, res, next) => {
 //     }
 
 // });
+// GET /api/products
+router.get('/', async (req, res, next) => {
+  console.log('Products router');
+  try {
+    const products = await getAllProducts();
+    console.log('API ', products);
+
+    res.send(products);
+  } catch ({ name, message }) {
+    res.send({ name, message });
+  }
+});
 
 //GET /api/products/:productId
 router.get('/:productId', async (req, res, next) => {
