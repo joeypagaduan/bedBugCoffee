@@ -21,7 +21,8 @@ export async function getProducts() {
     const { data: products } = await axios.get(
       'http://localhost:4000/api/products'
     );
-    return products;
+    console.log(products.products);
+    return products.products;
   } catch (err) {
     console.error(err);
   }
