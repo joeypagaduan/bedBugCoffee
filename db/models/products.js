@@ -122,4 +122,5 @@ module.exports = {
   getProductById,
   destroyProduct,
   updateProduct,
+  createProduct,
 };

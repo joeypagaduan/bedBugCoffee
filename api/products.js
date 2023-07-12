@@ -50,18 +50,15 @@ router.post('/', async (req, res, next) => {
 
 // GET /api/products
 router.get('/', async (req, res, next) => {
-
   console.log('Products router');
   try {
     const products = await getAllProducts();
     console.log('API ', products);
-    
-    res.send({
-      message: "these are all the products",
-      products: products
-    });
 
-    res.send(products);
+    res.send({
+      message: 'these are all the products',
+      products: products,
+    });
   } catch ({ name, message }) {
     res.send({ name, message });
   }
@@ -126,46 +123,44 @@ router.get('/:productId', async (req, res, next) => {
 
 //PATCH /api/products/:productId
 router.patch('/:productId', async (req, res, next) => {
-    const { productId } = req.params;
-    const { productName, price, ingredients, calories, inventory } = req.body;
+  const { productId } = req.params;
+  const { productName, price, ingredients, calories, inventory } = req.body;
 
-    const product = await getProductById(productId);
+  const product = await getProductById(productId);
 
-    try {
-        const updatedProduct = await updateProduct({
-            productName,
-            price,
-            ingredients,
-            calories,
-            inventory
-        });
-        res.send(updatedProduct);
-    } catch (error) {
-      next (error);
-    }
+  try {
+    const updatedProduct = await updateProduct({
+      productName,
+      price,
+      ingredients,
+      calories,
+      inventory,
+    });
+    res.send(updatedProduct);
+  } catch (error) {
+    next(error);
+  }
 });
 
 //DELETE /api/products/:productId
 router.delete('/:productId', async (req, res, next) => {
-    const { productId } = req.params;
-    const product = await getProductById(req.params.productId);
-    const { id, productName, price, ingredients, calories, inventory } = product;
+  const { productId } = req.params;
+  const product = await getProductById(req.params.productId);
+  const { id, productName, price, ingredients, calories, inventory } = product;
 
-    try{
-            await destroyProduct(productId);
-            res.send({
-                id,
-                productName,
-                price,
-                ingredients,
-                calories,
-                inventory
-            });
-    } catch (error) {
-        res.status(403).send(error);
-    } 
+  try {
+    await destroyProduct(productId);
+    res.send({
+      id,
+      productName,
+      price,
+      ingredients,
+      calories,
+      inventory,
+    });
+  } catch (error) {
+    res.status(403).send(error);
+  }
 });
-
-
 
 module.exports = router;
