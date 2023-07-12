@@ -24,6 +24,9 @@ router.get('/health', (req, res, next) => {
 const ordersRouter = require('./orders');
 router.use('/orders', ordersRouter);
 
+const usersRouter = require('./users');
+router.use('/users', usersRouter);
+
 // ROUTER: /api/carts
 const cartsRouter = require('./carts');
 router.use('/carts', cartsRouter);

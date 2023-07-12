@@ -8,7 +8,7 @@ const Signup = ({ setAuthentication }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const navigate = useNavigate();
-  const BASE_URL = 'http://localhost:4000/api/users';
+  const BASE_URL = 'http://localhost:4000/api/users/register';
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -30,7 +30,9 @@ const Signup = ({ setAuthentication }) => {
     };
 
     const result = await fetch(BASE_URL, options);
+    console.log(result);
     const response = await result.json();
+    console.log(response);
     if (response.success) {
       console.log(response);
       setAuthentication({ token: response.token, isLoggedIn: true });
