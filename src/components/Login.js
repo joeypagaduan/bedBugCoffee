@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import { useHistory } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import { useHistory } from 'react-router-dom';
 
 const Login = ({ setToken, token }) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -20,9 +20,9 @@ const Login = ({ setToken, token }) => {
     };
 
     const options = {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(requestBody),
     };
@@ -32,7 +32,7 @@ const Login = ({ setToken, token }) => {
     if (response.success) {
       console.log(response);
       setAuthentication({ token: response.data.token, isLoggedIn: true });
-      navigate("/");
+      navigate('/');
     } else {
       const error = response.error;
       console.log(error.message);
@@ -42,13 +42,13 @@ const Login = ({ setToken, token }) => {
 
   const handleSignup = (event) => {
     event.preventDefault();
-    console.log("Navigate to Sign-up page!");
-    navigate("/sign-up");
+    console.log('Navigate to Sign-up page!');
+    navigate('/sign-up');
   };
 
   return (
     <>
-      <form id="formulario">
+      <form id="form">
         <label>
           <font color="white">Username:</font>
           <input
@@ -64,7 +64,6 @@ const Login = ({ setToken, token }) => {
           <input
             type="password"
             id="password"
-            // maxlength="8"
             value={password}
             placeholder="Password"
             onChange={(event) => setPassword(event.target.value)}

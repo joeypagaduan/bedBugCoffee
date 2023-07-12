@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
+import { Card } from 'react-bootstrap';
+import { icons } from 'react-icons';
 
-function ProductCard({ product }) {
+function ProductCard({ product, addToCart }) {
   const [buy, setBuy] = useState('');
-  const [cart, setCart] = useState([]);
+
+  const handleAddToCartClick = () => {
+    addToCart(product);
+  };
 
   const handleBuyClick = () => {
     setBuy('You bought this product!');
-  };
-
-  const handleAddToCartClick = () => {
-    setCart([...cart, product]);
   };
 
   return (
@@ -25,8 +25,12 @@ function ProductCard({ product }) {
         <Card.Text>Ingredients: {product.ingredients}</Card.Text>
         <Card.Text>Calories: {product.calories}</Card.Text>
         <Card.Text>Price: {product.price}</Card.Text>
+
         <Button onClick={handleAddToCartClick} variant="primary">
           Add to cart
+        </Button>
+        <Button onClick={handleBuyClick} variant="success">
+          Buy
         </Button>
         {buy && <p>{buy}</p>}
       </Card.Body>
