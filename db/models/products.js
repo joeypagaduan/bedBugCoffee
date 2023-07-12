@@ -5,9 +5,11 @@ async function getAllProducts(){
         const {rows} = await client.query(`
             SELECT * FROM products
             `);
+            console.log(rows);
             return rows;
+
     }
-    catch(error){
+    catch(error) {
         console.log(error);
         throw error;
     }
@@ -73,6 +75,7 @@ async function getProductById(id) {
 
 async function addProducts({ productName, ingredients, price, calories, inventory }) {
   try {
+    console.log("Adding products ", productName)
     const { rows: [product] } = await client.query(
       `
       INSERT INTO products ("productName", ingredients, price, calories, inventory)
@@ -82,6 +85,7 @@ async function addProducts({ productName, ingredients, price, calories, inventor
       `,
       [productName, ingredients, price, calories, inventory]
     );
+      console.log("Finished adding product!!!")
 
     return product;
   } catch (error) {
@@ -93,7 +97,7 @@ async function addProducts({ productName, ingredients, price, calories, inventor
 
 async function getProduct(productName){
   try {
-      const { row: [product] } = await client.query(
+      const { rows: [product] } = await client.query(
           `
               SELECT *
               FROM products
@@ -111,10 +115,10 @@ async function getProduct(productName){
 
 // async function getAllProducts() {
 //   try {
-//       const { row: [products] } = await client.query(
+//       const { rows: [products] } = await client.query(
 //           `
 //               SELECT *
-//               FROM products
+//               FROM products;
 //           `
 //       );
 

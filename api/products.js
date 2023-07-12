@@ -109,10 +109,11 @@ router.get('/', async (req, res, next) => {
     const { productName, ingredients, price, calories, inventory } = req.query;
 
     // Add the new product to the database
-    await addProducts({ productName, ingredients, price, calories, inventory });
-
+    // await addProducts({ productName, ingredients, price, calories, inventory });
+    console.log("Getting Products")
     // Retrieve all products
     const products = await getAllProducts();
+    console.log("Finished Getting Products")
 
     // Send the response with the updated list of products
     res.send({

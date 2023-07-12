@@ -14,6 +14,7 @@ function ProductList() {
 
   const productsList = async () => {
     const prod = await getProducts();
+    console.log(prod);
     setProducts(prod);
   };
 

@@ -18,10 +18,11 @@ import axios from 'axios';
 
 export async function getProducts() {
   try {
-    const { data: products } = await axios.get(
+    const { data } = await axios.get(
       'http://localhost:4000/api/products'
     );
-    return products;
+    console.log(data.products);
+    return data.products;
   } catch (err) {
     console.error(err);
   }
