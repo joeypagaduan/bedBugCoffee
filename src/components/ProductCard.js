@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
+import React, { useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 
 function ProductCard({ product }) {
-  const [buy, setBuy] = useState("");
+  const [buy, setBuy] = useState('');
   const [cart, setCart] = useState([]);
 
   const handleBuyClick = () => {
-    setBuy("You bought this product!");
+    setBuy('You bought this product!');
   };
 
   const handleAddToCartClick = () => {
@@ -15,7 +15,7 @@ function ProductCard({ product }) {
   };
 
   return (
-    <Card style={{ width: "20rem" }}>
+    <Card style={{ width: '20rem' }}>
       <Card.Img
         variant="top"
         src="/images/Brown Simple Coffee Time Instagram Post.jpg"
@@ -25,9 +25,8 @@ function ProductCard({ product }) {
         <Card.Text>Ingredients: {product.ingredients}</Card.Text>
         <Card.Text>Calories: {product.calories}</Card.Text>
         <Card.Text>Price: {product.price}</Card.Text>
-        <Button onClick={handleBuyClick}>Buy</Button>
         <Button onClick={handleAddToCartClick} variant="primary">
-          Add to card
+          Add to cart
         </Button>
         {buy && <p>{buy}</p>}
       </Card.Body>

@@ -12,6 +12,7 @@ async function dropTables() {
     await client.query(`
       DROP TABLE IF EXISTS products;
       DROP TABLE IF EXISTS users;
+      DROP TABLE IF EXISTS carts;
       DROP TABLE IF EXISTS admin;
     `);
 
@@ -50,6 +51,19 @@ async function createTables() {
         price DECIMAL(4, 2) NOT NULL,
         calories INTEGER NOT NULL,
         inventory INTEGER
+      );
+
+      CREATE TABLE carts(
+        id SERIAL PRIMARY KEY,
+        email varchar(255) UNIQUE NOT NULL,
+        userId Int
+      );
+
+      CREATE TABLE entries(
+        id SERIAL PRIMARY KEY,
+        product JSONB,
+        quantity Int,
+        price numeric
       );
     `);
     console.log('Finished building tables!');

@@ -12,6 +12,7 @@ import CreateAccount from './components/CreateAccount';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ProductDetails from './components/ProductDetails';
 import Orders from './components/Orders';
+import Carts from './components/Carts';
 
 const App = () => {
   console.log('PAGE 1');
@@ -46,6 +47,7 @@ const App = () => {
             <Route path="/product/:id/:name" element={<ProductDetails />} />
             <Route path="/orders" element={<Orders />} />
             <Route path="/:type" element={<ProductList />} />
+            <Route path="/cart" element={<Carts />} />
             <Route path="/" element={<ProductList />} />
           </Route>
         </Routes>
