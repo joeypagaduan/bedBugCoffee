@@ -4,8 +4,6 @@ const client = require('./client');
 
 const { createUser, createProduct } = require('./');
 
-const client = require("./client");
-
 async function dropTables() {
   try {
     console.log('Dropping All Tables...');
@@ -212,12 +210,6 @@ async function rebuildDB() {
     throw error;
   }
 }
-
-client.connect();
-
-rebuildDB()
-  .catch(console.error)
-  .finally(() => client.end());
 
 module.exports = {
   rebuildDB,
