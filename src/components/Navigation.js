@@ -4,7 +4,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 
 function Navigation({ setToken, token }) {
@@ -41,8 +41,8 @@ function Navigation({ setToken, token }) {
     <Nav.Link href="/login">Login</Nav.Link>
   ) : ( 
     <NavDropdown title="My Account" id="collasible-nav-dropdown">
-      <NavDropdown.Item href="/account">Account</NavDropdown.Item>
-      <NavDropdown.Item href="/cart">Cart</NavDropdown.Item>
+    <NavDropdown.Item as={Link} to="/account">Account</NavDropdown.Item>
+      <NavDropdown.Item as={Link} to="/cart">Cart</NavDropdown.Item>
       <NavDropdown.Divider />
       <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
     </NavDropdown>
