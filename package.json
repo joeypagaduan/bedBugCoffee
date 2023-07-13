@@ -8,7 +8,7 @@
     "client:dev": "react-scripts start",
     "client:build": "react-scripts build",
     "server:dev": "nodemon index.js",
-    "db:build": "node ./db/seedData",
+    "db:build": "node ./db/seedData.js",
     "start:dev": "concurrently \"npm run client:build\" \"npm run client:dev\" \"npm run server:dev\"",
     "start": "node index.js",
     "test": "jest --runInBand"
@@ -19,23 +19,26 @@
   "dependencies": {
     "axios": "^0.19.2",
     "bcrypt": "^5.1.0",
+    "bootstrap": "^5.3.0",
     "concurrently": "^7.0.0",
     "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "jest": "^24.9.0",
     "jsonwebtoken": "^9.0.0",
     "morgan": "^1.10.0",
-    "pg": "^8.2.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "^5.0.1"
+    "pg": "^8.11.1",
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.8.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.10.1",
+    "react-router-dom": "^6.14.1",
+    "react-scripts": "5.0.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.4",
     "supertest": "^6.2.1"
   },
-  "proxy": "http://localhost:4000",
   "browserslist": {
     "production": [
       ">0.2%",

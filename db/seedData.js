@@ -4,11 +4,9 @@ const client = require("./client")
 
 const {
   createUser,
-  createProduct,
-  createAdmin
+  addProducts,
+  createAdmin,
 } = require("./");
-
-const client = require("./client");
 
 async function dropTables() {
   try {
@@ -16,9 +14,13 @@ async function dropTables() {
   // drop all tables, in the correct order
 
     await client.query(`
+      DROP TABLE IF EXISTS order_items;
+      DROP TABLE IF EXISTS orders;
+      DROP TABLE IF EXISTS cart_item;
+      DROP TABLE IF EXISTS carts;
       DROP TABLE IF EXISTS products;
-      DROP TABLE IF EXISTS users;
       DROP TABLE IF EXISTS admin;
+      DROP TABLE IF EXISTS users;
     `)
 
     console.log('Finished dropping tables!');
@@ -37,8 +39,8 @@ async function createTables() {
       CREATE TABLE users(
         id SERIAL PRIMARY KEY,
         username varchar(255) UNIQUE NOT NULL,
-        email varchar(255) UNIQUE NOT NULL,
-        password varchar(255) NOT NULL
+        password varchar(255) NOT NULL,
+        email varchar(255) UNIQUE NOT NULL
       );
 
       CREATE TABLE admin(
@@ -46,22 +48,52 @@ async function createTables() {
         username varchar(255) UNIQUE NOT NULL,
         email varchar(255) UNIQUE NOT NULL,
         password varchar(255) NOT NULL
-      );
-
+        );
+        
       CREATE TABLE products(
         id SERIAL PRIMARY KEY,
-        productName VARCHAR(255) UNIQUE NOT NULL,
+        "productName" VARCHAR(255) UNIQUE NOT NULL,
         ingredients TEXT NOT NULL,
         price DECIMAL(4, 2) NOT NULL,
         calories INTEGER NOT NULL,
         inventory INTEGER
+        );
+          
+      CREATE TABLE carts(
+        "cartId" SERIAL PRIMARY KEY,
+        "userId" INTEGER
+        );
+            
+      CREATE TABLE cart_item(
+        "cartProductId" SERIAL PRIMARY KEY,
+        "cartProductName" VARCHAR(255) UNIQUE NOT NULL,
+        "cartProductDescription" VARCHAR(255) NOT NULL,
+        "cartQuantity" INTEGER NOT NULL,
+        "cartProductPrice" DECIMAL(10, 2) NOT NULL,
+        "cartTotalPrice" DECIMAL(10, 2) NOT NULL,
+        "cartId" INTEGER NOT NULL,
+        FOREIGN KEY ("cartId") REFERENCES carts("cartId")
+        );
+        
+        CREATE TABLE orders(
+        "orderId" SERIAL PRIMARY KEY,
+        "orderDate" TIMESTAMP NOT NULL,
+        "userId" INTEGER NOT NULL,
+        "orderTotalPrice" DECIMAL(10, 2) NOT NULL DEFAULT 0.00
       );
+      
+      CREATE TABLE order_items(
+        id SERIAL PRIMARY KEY,
+        "orderProductName" VARCHAR(255) UNIQUE NOT NULL,
+        "orderProductPrice" DECIMAL(4, 2) NOT NULL,
+        "orderQty" INTEGER NOT NULL
+        );
     `);
-    console.log('Finished building tables!');
-  } catch (error) {
-    console.error('Error building tables!');
-
-    throw error;
+        console.log('Finished building tables!');
+      } catch (error) {
+        console.error('Error building tables!');
+        
+        throw error;
   }
 };
 
@@ -75,9 +107,9 @@ async function createInitialUsers() {
   console.log("Starting to create users...")
   try {
     const usersToCreate = [
-      { username: "damylles", email: "damylles@hello.edu", password: "rose123" },
-      { username: "tuyen", email: "tuyen@hello.edu", password: "tran123" },
-      { username: "mirian", email: "mirian@hello.edu", password: "piniones123" },
+      { username: "damylles", password: "rose123", email: "damylles@hello.edu" },
+      { username: "tuyen", password: "tran123", email: "tuyen@hello.edu" },
+      { username: "mirian", password: "piniones123", email: "mirian@hello.edu" },
     ]
     const users = await Promise.all(usersToCreate.map(createUser))
 
@@ -88,7 +120,7 @@ async function createInitialUsers() {
     console.error("Error creating users!")
     throw error
   }
-}
+};
 
 async function createInitialAdmin() {
   console.log("Starting to create administrators...")
@@ -176,7 +208,7 @@ async function createInitialProducts() {
         inventory: "10"
       },
     ]
-    const products = await Promise.all(productsToCreate.map(createProduct))
+    const products = await Promise.all(productsToCreate.map(addProducts))
 
     console.log("products created:")
     console.log(products)
@@ -193,8 +225,8 @@ async function rebuildDB() {
     await dropTables()
     await createTables()
     await createInitialUsers()
-    await createInitialProducts()
     await createInitialAdmin()
+    await createInitialProducts()
   } catch (error) {
     console.log("Error during rebuildDB")
     throw error
@@ -206,9 +238,3 @@ client.connect();
 rebuildDB()
   .catch(console.error)
   .finally(() => client.end());
-
-module.exports = {
-  rebuildDB,
-  dropTables,
-  createTables,
-}

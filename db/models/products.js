@@ -3,23 +3,25 @@ const client = require('../client');
 async function getAllProducts(){
     try{
         const {rows} = await client.query(`
-            SELECT* FROM products
+            SELECT * FROM products
             `);
+            console.log(rows);
             return rows;
+
     }
-    catch(error){
+    catch(error) {
         console.log(error);
         throw error;
     }
 
 }
 
-async function getProductById(prodId) {
+async function getProductById(id) {
     try {
       const { rows: [product] } = await client.query(`
         SELECT * FROM products 
-        WHERE prodId = $1;
-        `, [prodId]
+        WHERE id = $1;
+        `, [id]
       );
       return product;
     } catch (error) {
@@ -55,7 +57,7 @@ async function getProductById(prodId) {
   async function destroyProduct(id) {
     try {
         await client.query(
-        `DELETE FROM routines
+        `DELETE FROM products
         WHERE id = $1;`
       , [id]);
   
@@ -70,9 +72,70 @@ async function getProductById(prodId) {
     }
 ;}
 
+
+async function addProducts({ productName, ingredients, price, calories, inventory }) {
+  try {
+    console.log("Adding products ", productName)
+    const { rows: [product] } = await client.query(
+      `
+      INSERT INTO products ("productName", ingredients, price, calories, inventory)
+      VALUES ($1, $2, $3, $4, $5)
+      ON CONFLICT ("productName") DO NOTHING
+      RETURNING *;
+      `,
+      [productName, ingredients, price, calories, inventory]
+    );
+      console.log("Finished adding product!!!")
+
+    return product;
+  } catch (error) {
+    // Handle any errors that occurred during the insertion process
+    throw error;
+  }
+}
+
+
+async function getProduct(productName){
+  try {
+      const { rows: [product] } = await client.query(
+          `
+              SELECT *
+              FROM products
+              WHERE "productName"=$1
+          `, [productName]
+      );
+
+      return product;
+  }
+
+  catch (error) {
+      throw error;
+  }
+}
+
+// async function getAllProducts() {
+//   try {
+//       const { rows: [products] } = await client.query(
+//           `
+//               SELECT *
+//               FROM products;
+//           `
+//       );
+
+//       return products;
+//   }
+
+//   catch (error) {
+//       throw error;
+//   }
+// }
+
 module.exports = {
     getAllProducts,
     getProductById,
     destroyProduct,
-    updateProduct
+    updateProduct,
+    addProducts,
+    getProduct,
+    getAllProducts
 };

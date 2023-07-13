@@ -1,5 +1,5 @@
 // grab our db client connection to use with our adapters
-const client = require("./client");
+const client = require("../client");
 const bcrypt = require("bcrypt");
 
 async function createUser({ username, password, email}) {
@@ -95,10 +95,29 @@ async function getAllUsers() {
   }
 }
 
+async function createAdmin({ username, email, password}) {
+  try{
+    const { rows: [admin] } = await client.query(
+      `
+      INSERT INTO admin(username, email, password)
+      VALUES($1, $2, $3)
+      ON CONFLICT (username) DO NOTHING
+      RETURNING *;
+    `,
+      [username, email, password]
+    );
+
+    return admin;
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   createUser,
   getUser,
   getUserById,
   getUserByUsername,
   getAllUsers,
+  createAdmin
 };
