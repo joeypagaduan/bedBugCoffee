@@ -6,7 +6,7 @@ const createCart = async ({ userId, sessionId, cartStatus }) => {
             INSERT INTO cart ("userId")
             VALUES ($1)
             RETURNING *;
-        `, [userId);
+        `, [userId]);
 
         return cart;
     } catch (error) {
