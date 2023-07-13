@@ -27,7 +27,7 @@ function Navigation({ setToken, token }) {
     <>
       <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
         <Container>
-          <Navbar.Brand href="#home">Bed Bug Coffee</Navbar.Brand>
+          <Navbar.Brand href="/">Bed Bug Coffee</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
