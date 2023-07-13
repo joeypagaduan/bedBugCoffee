@@ -27,13 +27,11 @@ function Navigation({ setToken, token }) {
     <>
       <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
         <Container>
-          <Navbar.Brand href="#home">Bed Bug Coffee</Navbar.Brand>
+          <Navbar.Brand>Bed Bug Coffee</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="/">All Selections</Nav.Link>
-              {/* <Nav.Link href="/arabica">Arabica</Nav.Link> */}
-              {/* <Nav.Link href="/robusta">Robusta</Nav.Link> */}
+              <Nav.Link as={Link} to="/">All Selections</Nav.Link>
             </Nav>
             <Nav>
             
@@ -41,7 +39,6 @@ function Navigation({ setToken, token }) {
     <Nav.Link href="/login">Login</Nav.Link>
   ) : ( 
     <NavDropdown title="My Account" id="collasible-nav-dropdown">
-    <NavDropdown.Item as={Link} to="/account">Account</NavDropdown.Item>
       <NavDropdown.Item as={Link} to="/cart">Cart</NavDropdown.Item>
       <NavDropdown.Divider />
       <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
