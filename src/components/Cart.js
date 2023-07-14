@@ -1,15 +1,15 @@
 import React from 'react';
 
-function Cart ({token}) {
+function Cart({cart}) {
 
-    console.log("cart page, load token: " + token)
-
-        return (
-            <>
-                <div>cart !!!!!!!!!!!!!!!!!!</div>
-            </>
-        );
-
+    return (
+        <>
+            <h1>{'Cart'}</h1>
+            <div>
+                {cart}
+            </div>
+        </>
+    );
 }
 
 export default Cart;

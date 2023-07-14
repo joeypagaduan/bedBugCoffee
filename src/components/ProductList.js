@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/Row';
 
 import { getProducts } from '../axios-services';
 
-function ProductList() {
+function ProductList({ setCart, cart, token }) {
   const { type } = useParams();
 
   const [products, setProducts] = useState([]);
@@ -30,7 +30,7 @@ function ProductList() {
           products.map((product) => {
             return (
               <Col key={product.id}>
-                <ProductCard product={product}></ProductCard>
+                    <ProductCard product={product} setCart={setCart} cart={cart} token={token}></ProductCard>
               </Col>
             );
           })}

@@ -19,6 +19,7 @@ import Cart from './components/Cart';
 const App = () => {
   const [APIHealth, setAPIHealth] = useState('');
   const [token, setToken] = useState('');
+  const [cart, setCart] = useState([]);
 
   useEffect(() => {
     // follow this pattern inside your useEffect calls:
@@ -45,11 +46,9 @@ const App = () => {
                     <Route exact path="/login" element={<Login Login={Login} setToken={setToken} token={token}/>} />
                     <Route exact path="/product/:id/:name" element={<ProductDetails />} />
                     <Route exact path="/orders" element={<Orders />} />
-                    
-                    <Route exact path="/cart" element={<Cart token={token}/>}/>
-                    
+                    <Route exact path="/cart" element={<Cart cart={cart}/>}/>
                     <Route exact path="/:type" element={<ProductList />} />
-                    <Route excat path="/" element={<ProductList token={token} />} />
+                    <Route excat path="/" element={<ProductList setCart={setCart} cart={cart} token={token} />} />
                 
                 </Route>
             </Routes>
