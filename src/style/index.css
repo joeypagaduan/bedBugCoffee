@@ -7,7 +7,11 @@ body {
   -o-background-size: cover;
   background-size: cover;
   /* background-color: black; */
+<<<<<<< HEAD
   font-family: 'Roboto', sans-serif;
+=======
+  font-family: "Roboto", sans-serif;
+>>>>>>> damylles-initial
   /* margin-top: 70px;
   font-family: "Roboto", sans-serif;
   color: #e2d8d8;
@@ -17,6 +21,31 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center; */
+}
+
+.badge {
+  padding-left: 9px;
+  padding-right: 9px;
+  -webkit-border-radius: 9px;
+  -moz-border-radius: 9px;
+  border-radius: 9px;
+}
+
+.label-warning[href],
+.badge-warning[href] {
+  background-color: #c67605;
+}
+#lblCartCount {
+  font-size: 12px;
+  background: #ff0000;
+  color: #fff;
+  padding: 0 5px;
+  vertical-align: top;
+  margin-left: -10px;
+}
+
+.fa {
+  font-size: 30px;
 }
 
 .bg-body-tertiary {
@@ -130,8 +159,13 @@ button:focus {
 
 :root {
   --bg: #ffffff;
+<<<<<<< HEAD
   --font: 'Archivo', sans-serif;
   --font-display: 'Archivo Narrow', sans-serif;
+=======
+  --font: "Archivo", sans-serif;
+  --font-display: "Archivo Narrow", sans-serif;
+>>>>>>> damylles-initial
   --hotpink: #cecccc;
   --beige: #d0d0d0;
   /* --gradient: linear-gradient(35deg, var(--beige), var(--hotpink)); */

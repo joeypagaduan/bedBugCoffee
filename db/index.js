@@ -1,7 +1,10 @@
-const models = require('./models');
-const DB_NAME = 'bedBugCoffee';
+
+const models = require("./models");
 
 module.exports = {
   ...models,
-  DB_NAME,
+  // ...require('./models/user'),
+  // ...require('./models/products'),
+  // //...require('./models/admin'),
+
 };

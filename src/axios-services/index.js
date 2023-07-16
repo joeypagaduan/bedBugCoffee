@@ -21,8 +21,12 @@ export async function getProducts() {
     const { data: products } = await axios.get(
       'http://localhost:4000/api/products'
     );
+<<<<<<< HEAD
     console.log(products.products);
     return products.products;
+=======
+    return products;
+>>>>>>> damylles-initial
   } catch (err) {
     console.error(err);
   }
