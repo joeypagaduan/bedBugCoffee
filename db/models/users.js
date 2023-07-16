@@ -1,19 +1,11 @@
 // grab our db client connection to use with our adapters
-<<<<<<< HEAD
+
 const client = require('../client');
 const bcrypt = require('bcrypt');
-
-async function createUser({ username, password, email }) {
-  console.log(`${username}, ${password}, ${email}`);
-
-=======
-const client = require("../client");
-const bcrypt = require("bcrypt");
 
 async function createUser({ username, password, email, isAdmin }) {
   console.log(`${username}, ${password}, ${email}`);
 
->>>>>>> damylles-initial
   const SALT_COUNT = 5;
   const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
 
@@ -34,11 +26,8 @@ async function createUser({ username, password, email, isAdmin }) {
     user.success = true;
     return user;
   } catch (error) {
-<<<<<<< HEAD
     console.log('Error creating user: ', error);
-=======
-    console.log("Error creating user: ", error);
->>>>>>> damylles-initial
+
     throw error;
   }
 }
@@ -102,7 +91,7 @@ async function getUserByUsername(username) {
 async function getAllUsers() {
   /* this adapter should fetch a list of users from your db */
   try {
-    const query = "SELECT * FROM users";
+    const query = 'SELECT * FROM users';
     const { rows } = await client.query(query);
 
     // Remove password field from each user object
@@ -113,7 +102,7 @@ async function getAllUsers() {
 
     return users;
   } catch (error) {
-    console.error("Error fetching users:", error);
+    console.error('Error fetching users:', error);
     throw error;
   }
 }

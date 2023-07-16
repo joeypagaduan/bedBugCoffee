@@ -7,11 +7,9 @@ body {
   -o-background-size: cover;
   background-size: cover;
   /* background-color: black; */
-<<<<<<< HEAD
+
   font-family: 'Roboto', sans-serif;
-=======
-  font-family: "Roboto", sans-serif;
->>>>>>> damylles-initial
+
   /* margin-top: 70px;
   font-family: "Roboto", sans-serif;
   color: #e2d8d8;
@@ -159,13 +157,10 @@ button:focus {
 
 :root {
   --bg: #ffffff;
-<<<<<<< HEAD
+
   --font: 'Archivo', sans-serif;
   --font-display: 'Archivo Narrow', sans-serif;
-=======
-  --font: "Archivo", sans-serif;
-  --font-display: "Archivo Narrow", sans-serif;
->>>>>>> damylles-initial
+
   --hotpink: #cecccc;
   --beige: #d0d0d0;
   /* --gradient: linear-gradient(35deg, var(--beige), var(--hotpink)); */
