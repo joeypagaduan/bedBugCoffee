@@ -1,25 +1,31 @@
 // grab our db client connection to use with our adapters
-const client = require("./client");
+const client = require("../client");
 const bcrypt = require("bcrypt");
 
-async function createUser({ username, password, email}) {
+async function createUser({ username, password, email, isAdmin }) {
+  console.log(`${username}, ${password}, ${email}`);
+
   const SALT_COUNT = 5;
   const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
 
   try {
-    const { rows: [user] } = await client.query(
+    const {
+      rows: [user],
+    } = await client.query(
       `
-      INSERT INTO users(username, password, email)
-      VALUES($1, $2, $3)
+      INSERT INTO users(username, password, email, "isAdmin")
+      VALUES($1, $2, $3, $4)
       ON CONFLICT (username) DO NOTHING
       RETURNING *;
     `,
-      [username, hashedPassword, email]
+      [username, hashedPassword, email, isAdmin]
     );
 
     delete user.password;
+    user.success = true;
     return user;
   } catch (error) {
+    console.log("Error creating user: ", error);
     throw error;
   }
 }
@@ -38,7 +44,9 @@ async function getUser({ username, password }) {
 
 async function getUserById(userId) {
   try {
-    const { rows: [user] } = await client.query(
+    const {
+      rows: [user],
+    } = await client.query(
       `
       SELECT *
       FROM users
@@ -61,7 +69,9 @@ async function getUserById(userId) {
 
 async function getUserByUsername(username) {
   try {
-    const { rows: [user] } = await client.query(
+    const {
+      rows: [user],
+    } = await client.query(
       `
       SELECT *
       FROM users
@@ -79,7 +89,7 @@ async function getUserByUsername(username) {
 async function getAllUsers() {
   /* this adapter should fetch a list of users from your db */
   try {
-    const query = 'SELECT * FROM users';
+    const query = "SELECT * FROM users";
     const { rows } = await client.query(query);
 
     // Remove password field from each user object
@@ -90,7 +100,7 @@ async function getAllUsers() {
 
     return users;
   } catch (error) {
-    console.error('Error fetching users:', error);
+    console.error("Error fetching users:", error);
     throw error;
   }
 }
