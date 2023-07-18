@@ -12,13 +12,14 @@ import CreateAccount from './components/CreateAccount';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ProductDetails from './components/ProductDetails';
 import Orders from './components/Orders';
+import Cart from './components/Cart';
 
 
 
 const App = () => {
-  console.log('PAGE 1');
   const [APIHealth, setAPIHealth] = useState('');
   const [token, setToken] = useState('');
+  const [cart, setCart] = useState([]);
 
   useEffect(() => {
     // follow this pattern inside your useEffect calls:
@@ -37,30 +38,21 @@ const App = () => {
 
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-        
-          <Route exact path="/" element={<Layout token={token} setToken={setToken} />}>
+        <BrowserRouter>
+            <Routes>
+                <Route exact path="/" element={<Layout token={token} setToken={setToken} />}>
 
-            <Route
-              path="/sign-up"
-              element={<Signup setToken={setToken} />}
-            />
-
-            <Route path="/login" element={<Login 
-              Login={Login} setToken={setToken} token={token}
-              />} />
-
-            <Route path="/product/:id/:name" element={<ProductDetails />} />
-            <Route path="/orders" element={<Orders />} />
-            <Route path="/:type" element={<ProductList />} />
-            <Route path="/" element={<ProductList />} />
-            
-
-
-          </Route>
-        </Routes>
-      </BrowserRouter>
+                    <Route exact path="/sign-up" element={<Signup setToken={setToken} />}/>
+                    <Route exact path="/login" element={<Login Login={Login} setToken={setToken} token={token}/>} />
+                    <Route exact path="/product/:id/:name" element={<ProductDetails />} />
+                    <Route exact path="/orders" element={<Orders />} />
+                    <Route exact path="/cart" element={<Cart cart={cart}/>}/>
+                    <Route exact path="/:type" element={<ProductList />} />
+                    <Route excat path="/" element={<ProductList setCart={setCart} cart={cart} token={token} />} />
+                
+                </Route>
+            </Routes>
+        </BrowserRouter>
     </>
   );
 };
