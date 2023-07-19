@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { BASE_URI } from '../axios-services'; 
 
 function Cart({cart}) {
   const [cartItems, setCartItems] = useState(cart);
@@ -14,7 +15,7 @@ function Cart({cart}) {
   const handleRemoveProduct = async (productId) => {
     try {
       // Update the cart first
-      await fetch('http://localhost:4000/api/carts/remove', {
+      await fetch(`${BASE_URI}/api/carts/remove`, {
         headers: {
           'Content-Type': 'application/json',
         },

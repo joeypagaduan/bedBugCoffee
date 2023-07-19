@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 import { useNavigate } from "react-router-dom";
 
+import { BASE_URI } from '../axios-services';
+
 
 const Login = ({ setToken, token }) => {
   const [username, setUsername] = useState('');
@@ -16,7 +18,7 @@ const Login = ({ setToken, token }) => {
    
     try {
     //   const response = await loginApi(username, password);
-    const response = await fetch('http://localhost:4000/api/users/login', {
+    const response = await fetch(`${BASE_URI}/api/users/login`, {
         headers: {
             "Content-Type": "application/json"
         },

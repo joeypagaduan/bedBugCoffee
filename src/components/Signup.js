@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 // import { registerUser } from '../api';
 import { useNavigate } from 'react-router-dom';
 // const express = require('express');
+import { BASE_URI } from '../axios-services';
 
 
 const Signup = ({ setToken, token }) => {
@@ -24,7 +25,7 @@ const Signup = ({ setToken, token }) => {
 
     try {
     
-      const response = await fetch('http://localhost:4000/api/users/register', {
+      const response = await fetch(`${BASE_URI}/api/users/register`, {
         headers: {
             "Content-Type": "application/json"
         },
