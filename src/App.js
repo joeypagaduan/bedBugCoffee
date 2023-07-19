@@ -48,7 +48,7 @@ const App = () => {
                     <Route exact path="/orders" element={<Orders />} />
                     <Route exact path="/cart" element={<Cart cart={cart}/>}/>
                     <Route exact path="/:type" element={<ProductList />} />
-                    <Route excat path="/" element={<ProductList setCart={setCart} cart={cart} token={token} />} />
+                    <Route exact path="/" element={<ProductList setCart={setCart} cart={cart} token={token} />} />
                 
                 </Route>
             </Routes>
