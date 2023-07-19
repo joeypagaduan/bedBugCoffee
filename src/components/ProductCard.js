@@ -17,7 +17,7 @@ function ProductCard({ product, setCart, cart, token}) {
             />
             
             <Card.Body>
-                <Card.Title>{product.name}</Card.Title>
+                <Card.Title>{product.productName}</Card.Title>
                 <Card.Text>Ingredients: {product.ingredients}</Card.Text>
                 <Card.Text>Calories: {product.calories}</Card.Text>
                 <Card.Text>Price: {product.price}</Card.Text>
@@ -30,5 +30,6 @@ function ProductCard({ product, setCart, cart, token}) {
         </Card>
     );
 }
+
 
 export default ProductCard;
