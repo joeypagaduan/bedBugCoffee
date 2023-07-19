@@ -6,7 +6,7 @@
   "scripts": {
     "postinstall": "npm run client:build",
     "client:dev": "react-scripts start",
-    "client:build": "react-scripts build",
+    "client:build": "react-scripts build && echo '/* /index.html  200' | cat >build/_redirects",
     "server:dev": "nodemon index.js",
     "db:build": "node ./db/seedData.js",
     "start:dev": "concurrently \"npm run client:build\" \"npm run client:dev\" \"npm run server:dev\"",
