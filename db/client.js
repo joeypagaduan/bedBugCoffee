@@ -28,11 +28,11 @@
 
 // module.exports = client;
 
-const { Pool } = require('pg');
+const { Client } = require('pg');
 const DB_NAME = 'bedBugCoffee';
 const connectionString =
   process.env.DATABASE_URL || `postgres://localhost:5432/${DB_NAME}`;
-const client = new Pool({
+const client = new Client({
   connectionString,
   ssl:
     process.env.NODE_ENV === 'production'
