@@ -11,7 +11,7 @@ const {
 
 const router = express.Router();
 
-// GET /api/routines
+// GET /api/carts
 router.get("/", async (req, res, next) => {
   console.log("Carts router");
 });
@@ -19,7 +19,7 @@ router.get("/", async (req, res, next) => {
 
 router.post('/shopping-cart', async (req, res, next) => {
   const { userId } = req.body
-
+  console.log(userCart)
   try {
       const userCart = await getUserCart(userId);
       res.send(userCart);

@@ -49,7 +49,6 @@ async function getProductById(id) {
       }
     } catch (err) {
       console.error(err);
-      throw err;
     }
   
   }
